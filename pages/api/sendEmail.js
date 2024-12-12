@@ -1,7 +1,18 @@
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "https://qualipact.com"); // **Development me localhost use karein**
+  const allowedOrigins = [
+    "https://qualipact.com",
+    "https://www.qualipact.com"
+  ];
+
+  const origin = req.headers.origin;
+
+  // Set Access-Control-Allow-Origin header if origin is allowed
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
